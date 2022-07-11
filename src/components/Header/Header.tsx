@@ -28,7 +28,7 @@ export default function Header() {
                     Dashboard
                   </a>
                 </Link>
-                <Link href="https://github.com/SooditK/noteshub-2.0">
+                <Link href="https://github.com/SooditK/notehub-updated">
                   <a className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                     Github
                   </a>
@@ -67,7 +67,7 @@ export default function Header() {
                         </Link>
                       </Menu.Item>
                       <Menu.Item>
-                        <Link href="https://github.com/SooditK/noteshub-2.0">
+                        <Link href="https://github.com/SooditK/notehub-updated">
                           <a className="block px-4 py-2 text-sm text-gray-700">
                             Github
                           </a>
