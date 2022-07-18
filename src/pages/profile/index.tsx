@@ -14,7 +14,7 @@ const Profile = () => {
   console.log(session);
   return (
     <>
-      <Header />
+      <Header />      
       <div className="flex justify-center items-center flex-col gap-4">
         <div className="mx-auto mt-4 max-w-xs bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img
