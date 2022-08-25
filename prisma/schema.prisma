@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
+    provider = "cockroachdb"
     // url      = "file:./db.sqlite"
     url      = env("DATABASE_URL")
     // referentialIntegrity = "prisma"

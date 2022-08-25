@@ -138,11 +138,11 @@ const SearchResult = ({ posts, search, setResult }: SearchResultProps) => {
                     </div>
                     <div className="flex gap-x-4 items-center justify-center bottom-0 right-0 w-full px-4 py-2">
                       <img
-                        className="w-6 h-6 rounded-full"
-                        src={post.author?.image!}
+                        className="w-8 h-8 rounded-full"
+                        src={`https://avatars.dicebear.com/api/miniavs/${post.author?.image}.svg`}
                         alt={`${post.author?.name}'s avatar`}
                       />
-                      <span className="text-gray-800 text-sm">
+                      <span className="text-gray-800 mt-1 text-sm">
                         {post.author?.name}
                       </span>
                     </div>

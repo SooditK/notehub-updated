@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { BiChevronDown } from "react-icons/bi";
 import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 export default function Dropdown() {
   return (
@@ -26,7 +27,11 @@ export default function Dropdown() {
           <div className="py-1">
             <Menu.Item>
               <button
-                onClick={() => signIn("github")}
+                onClick={() =>
+                  toast.error(
+                    "Github is not supported yet, please sign in with Google"
+                  )
+                }
                 className="block px-4 py-2 text-sm"
               >
                 Github

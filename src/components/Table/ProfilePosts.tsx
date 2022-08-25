@@ -20,7 +20,9 @@ const ProfilePosts = () => {
   const deletePost = trpc.useMutation(["post.deletepost"]);
   return (
     <div className="container p-2 mx-auto sm:p-4 text-gray-100">
-      <h2 className="mb-4 text-2xl font-semibold leading-tight">Your Notes</h2>
+      <h2 className="mb-4 text-2xl font-semibold text-gray-800 leading-tight">
+        Your Notes
+      </h2>
       <div className="overflow-x-auto">
         <table className="min-w-full text-xs">
           <thead className="bg-gray-700">

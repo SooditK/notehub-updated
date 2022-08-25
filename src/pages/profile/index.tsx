@@ -7,19 +7,20 @@ import React from "react";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import ProfilePosts from "../../components/Table/ProfilePosts";
 import CreatePost from "../../components/CreatePost/CreatePost";
+import Image from "next/image";
 
 const Profile = () => {
   const [open, setOpen] = React.useState(false);
   const { data: session } = useSession();
-  console.log(session);
+  // console.log(session);
   return (
     <>
-      <Header />      
+      <Header />
       <div className="flex justify-center items-center flex-col gap-4">
         <div className="mx-auto mt-4 max-w-xs bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img
             className="w-full rounded-lg h-56 object-cover"
-            src={session?.user?.image!}
+            src={`https://avatars.dicebear.com/api/miniavs/${session?.user?.name}.svg`}
             alt={session?.user?.name!}
           />
           <div className="py-5 text-center">

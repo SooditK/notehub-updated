@@ -4,8 +4,10 @@ import { useSession, signOut } from "next-auth/react";
 import { RiBook2Fill } from "react-icons/ri";
 import Dropdown from "./Dropdown";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
   const { data: session } = useSession();
   return (
     <Disclosure as="nav" className="bg-white shadow">
@@ -13,7 +15,12 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex justify-between h-16">
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-              <div className="flex-shrink-0 flex items-center">
+              <div
+                className="flex-shrink-0 flex items-center hover:cursor-pointer"
+                onClick={(e) => {
+                  router.push("/");
+                }}
+              >
                 <RiBook2Fill className="block lg:hidden h-8 w-auto" />
                 <RiBook2Fill className="hidden lg:block h-8 w-auto" />
               </div>
@@ -44,8 +51,8 @@ export default function Header() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={String(session?.user?.image)}
-                        alt=""
+                        src={`https://avatars.dicebear.com/api/miniavs/${session?.user?.name}.svg`}
+                        alt={session?.user?.name!}
                       />
                     </Menu.Button>
                   </div>
