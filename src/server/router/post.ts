@@ -1,10 +1,18 @@
-import { TRPCError } from "@trpc/server";
-import { createRouter } from "./context";
-import { prisma } from "../db/client";
-import { z } from "zod";
+import { TRPCError } from '@trpc/server';
+import { createRouter } from './context';
+import { prisma } from '../db/client';
+import { z } from 'zod';
 
 export const postRouter = createRouter()
-  .query("getuserfromid", {
+  .middleware(async ({ ctx, next }) => {
+    // Any queries or mutations after this middleware will
+    // raise an error unless there is a current session
+    if (!ctx.session) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+    return next();
+  })
+  .mutation('getuserfromid', {
     input: z.object({
       email: z.string(),
     }),
@@ -20,15 +28,7 @@ export const postRouter = createRouter()
       return user;
     },
   })
-  .middleware(async ({ ctx, next }) => {
-    // Any queries or mutations after this middleware will
-    // raise an error unless there is a current session
-    if (!ctx.session) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-    return next();
-  })
-  .query("allposts", {
+  .query('allposts', {
     async resolve({ ctx }) {
       const posts = await prisma.post.findMany({
         where: {
@@ -43,7 +43,7 @@ export const postRouter = createRouter()
       return { success: true, posts };
     },
   })
-  .mutation("createpost", {
+  .mutation('createpost', {
     input: z.object({
       title: z.string(),
       description: z.string(),
@@ -83,7 +83,7 @@ export const postRouter = createRouter()
       };
     },
   })
-  .mutation("updatepost", {
+  .mutation('updatepost', {
     input: z.object({
       id: z.string(),
       title: z.string(),
@@ -122,7 +122,7 @@ export const postRouter = createRouter()
       };
     },
   })
-  .mutation("deletepost", {
+  .mutation('deletepost', {
     input: z.object({
       id: z.string(),
     }),

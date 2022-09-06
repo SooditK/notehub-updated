@@ -1,23 +1,23 @@
-import Link from "next/link";
-import React from "react";
-import { trpc } from "../../utils/trpc";
-import UpdatePost from "../UpdatePost/UpdatePost";
-import { FiExternalLink } from "react-icons/fi";
+import Link from 'next/link';
+import React from 'react';
+import { trpc } from '../../utils/trpc';
+import UpdatePost from '../UpdatePost/UpdatePost';
+import { FiExternalLink } from 'react-icons/fi';
 
 const ProfilePosts = () => {
   const utils = trpc.useContext();
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState({
-    id: "",
-    title: "",
-    description: "",
-    link: "",
-    subjectname: "",
-    subjectcode: "",
-    university: "",
+    id: '',
+    title: '',
+    description: '',
+    link: '',
+    subjectname: '',
+    subjectcode: '',
+    university: '',
   });
-  const { data: posts } = trpc.useQuery(["post.allposts"]);
-  const deletePost = trpc.useMutation(["post.deletepost"]);
+  const { data: posts } = trpc.useQuery(['post.allposts']);
+  const deletePost = trpc.useMutation(['post.deletepost']);
   return (
     <div className="container p-2 mx-auto sm:p-4 text-gray-100">
       <h2 className="mb-4 text-2xl font-semibold text-gray-800 leading-tight">
@@ -96,7 +96,7 @@ const ProfilePosts = () => {
                           { id: post.id },
                           {
                             onSuccess(data) {
-                              utils.invalidateQueries(["post.allposts"]);
+                              utils.invalidateQueries(['post.allposts']);
                             },
                           }
                         );

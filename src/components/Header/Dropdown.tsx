@@ -1,8 +1,8 @@
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { BiChevronDown } from "react-icons/bi";
-import { signIn } from "next-auth/react";
-import { toast } from "react-hot-toast";
+import { Fragment } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { BiChevronDown } from 'react-icons/bi';
+import { signIn } from 'next-auth/react';
+import { toast } from 'react-hot-toast';
 
 export default function Dropdown() {
   return (
@@ -29,7 +29,7 @@ export default function Dropdown() {
               <button
                 onClick={() =>
                   toast.error(
-                    "Github is not supported yet, please sign in with Google"
+                    'Github is not supported yet, please sign in with Google'
                   )
                 }
                 className="block px-4 py-2 text-sm"
@@ -39,7 +39,7 @@ export default function Dropdown() {
             </Menu.Item>
             <Menu.Item>
               <button
-                onClick={() => signIn("google")}
+                onClick={() => signIn('google')}
                 className="block px-4 py-2 text-sm"
               >
                 Google

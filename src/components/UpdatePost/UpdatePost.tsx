@@ -1,8 +1,8 @@
-import React from "react";
-import { Fragment, useState } from "react";
-import { trpc } from "../../utils/trpc";
-import toast from "react-hot-toast";
-import { Dialog, Transition } from "@headlessui/react";
+import React from 'react';
+import { Fragment } from 'react';
+import { trpc } from '../../utils/trpc';
+import toast from 'react-hot-toast';
+import { Dialog, Transition } from '@headlessui/react';
 
 interface UpdatePostProps {
   open: boolean;
@@ -34,7 +34,7 @@ export default function UpdatePost({
   setData,
 }: UpdatePostProps) {
   const utils = trpc.useContext();
-  const updateData = trpc.useMutation(["post.updatepost"]);
+  const updateData = trpc.useMutation(['post.updatepost']);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -172,17 +172,17 @@ export default function UpdatePost({
                           !data.subjectcode ||
                           !data.subjectname
                         ) {
-                          alert("Please fill all the fields");
+                          alert('Please fill all the fields');
                         } else {
                           updateData.mutate(
                             {
                               ...data,
                             },
                             {
-                              onSuccess(data) {
-                                utils.invalidateQueries(["post.allposts"]);
+                              onSuccess() {
+                                utils.invalidateQueries(['post.allposts']);
                                 setOpen(false);
-                                toast.success("Post Updated Successfully");
+                                toast.success('Post Updated Successfully');
                               },
                             }
                           );

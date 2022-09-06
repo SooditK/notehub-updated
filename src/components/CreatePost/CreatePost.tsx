@@ -1,8 +1,8 @@
-import React from "react";
-import { Fragment, useState } from "react";
-import { trpc } from "../../utils/trpc";
-import toast from "react-hot-toast";
-import { Dialog, Transition } from "@headlessui/react";
+import React from 'react';
+import { Fragment, useState } from 'react';
+import { trpc } from '../../utils/trpc';
+import toast from 'react-hot-toast';
+import { Dialog, Transition } from '@headlessui/react';
 
 export default function Example({
   open,
@@ -12,15 +12,15 @@ export default function Example({
   setOpen: (open: boolean) => void;
 }) {
   const [data, setData] = useState({
-    title: "",
-    description: "",
-    link: "",
-    subjectname: "",
-    subjectcode: "",
-    university: "",
+    title: '',
+    description: '',
+    link: '',
+    subjectname: '',
+    subjectcode: '',
+    university: '',
   });
   const utils = trpc.useContext();
-  const submitData = trpc.useMutation(["post.createpost"]);
+  const submitData = trpc.useMutation(['post.createpost']);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -158,7 +158,7 @@ export default function Example({
                           !data.subjectcode ||
                           !data.subjectname
                         ) {
-                          alert("Please fill all the fields");
+                          alert('Please fill all the fields');
                         } else {
                           submitData.mutate(
                             {
@@ -166,9 +166,9 @@ export default function Example({
                             },
                             {
                               onSuccess(data) {
-                                utils.invalidateQueries(["post.allposts"]);
+                                utils.invalidateQueries(['post.allposts']);
                                 setOpen(false);
-                                toast.success("Post Created Successfully");
+                                toast.success('Post Created Successfully');
                               },
                             }
                           );

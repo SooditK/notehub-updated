@@ -1,9 +1,9 @@
-import { TRPCError } from "@trpc/server";
-import { createRouter } from "./context";
-import { z } from "zod";
+import { TRPCError } from '@trpc/server';
+import { createRouter } from './context';
+import { z } from 'zod';
 
 export const authRouter = createRouter()
-  .query("getSession", {
+  .query('getSession', {
     resolve({ ctx }) {
       return ctx.session;
     },
@@ -12,14 +12,14 @@ export const authRouter = createRouter()
     // Any queries or mutations after this middleware will
     // raise an error unless there is a current session
     if (!ctx.session) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
     }
     return next();
   })
-  .query("getSecretMessage", {
+  .query('getSecretMessage', {
     async resolve({ ctx }) {
       return {
-        message: "You are logged in and can see this secret message!",
+        message: 'You are logged in and can see this secret message!',
         context: ctx.session,
       };
     },

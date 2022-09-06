@@ -1,18 +1,16 @@
-import { GetServerSideProps } from "next";
-import { useSession } from "next-auth/react";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { unstable_getServerSession } from "next-auth/next";
-import Header from "../../components/Header/Header";
-import React from "react";
-import { MdOutlineCreateNewFolder } from "react-icons/md";
-import ProfilePosts from "../../components/Table/ProfilePosts";
-import CreatePost from "../../components/CreatePost/CreatePost";
-import Image from "next/image";
+import { GetServerSideProps } from 'next';
+import { useSession } from 'next-auth/react';
+import { authOptions } from '../api/auth/[...nextauth]';
+import { unstable_getServerSession } from 'next-auth/next';
+import Header from '../../components/Header/Header';
+import React from 'react';
+import { MdOutlineCreateNewFolder } from 'react-icons/md';
+import ProfilePosts from '../../components/Table/ProfilePosts';
+import CreatePost from '../../components/CreatePost/CreatePost';
 
 const Profile = () => {
   const [open, setOpen] = React.useState(false);
   const { data: session } = useSession();
-  // console.log(session);
   return (
     <>
       <Header />
@@ -60,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: '/',
         permanent: false,
       },
     };

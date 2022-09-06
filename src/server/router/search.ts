@@ -1,9 +1,9 @@
-import { createRouter } from "./context";
-import { z } from "zod";
-import { prisma } from "../db/client";
+import { createRouter } from './context';
+import { z } from 'zod';
+import { prisma } from '../db/client';
 
 export const searchRouter = createRouter()
-  .query("notes", {
+  .query('notes', {
     input: z.object({
       text: z.string(),
     }),
@@ -42,16 +42,31 @@ export const searchRouter = createRouter()
             },
           ],
         },
-        include: {
+        // include: {
+        //   author: true,
+        //   Subject: true,
+        //   Likes: true,
+        // },
+        select: {
+          Likes: {
+            include: {
+              user: true,
+            },
+          },
           author: true,
           Subject: true,
-          Likes: true,
+          description: true,
+          link: true,
+          id: true,
+          title: true,
+          university: true,
+          subjectId: true,
         },
       });
       return posts;
     },
   })
-  .query("infiniteNotes", {
+  .query('infiniteNotes', {
     input: z.object({
       limit: z.number().min(1).nullish(),
       cursor: z.number().nullish(),

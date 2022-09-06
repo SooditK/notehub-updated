@@ -1,10 +1,10 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { useSession, signOut } from "next-auth/react";
-import { RiBook2Fill } from "react-icons/ri";
-import Dropdown from "./Dropdown";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { Fragment } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { useSession, signOut } from 'next-auth/react';
+import { RiBook2Fill } from 'react-icons/ri';
+import Dropdown from './Dropdown';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Header() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function Header() {
               <div
                 className="flex-shrink-0 flex items-center hover:cursor-pointer"
                 onClick={(e) => {
-                  router.push("/");
+                  router.push('/');
                 }}
               >
                 <RiBook2Fill className="block lg:hidden h-8 w-auto" />

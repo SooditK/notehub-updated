@@ -1,5 +1,5 @@
 // src/pages/api/examples.ts
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,6 +7,6 @@ export default async function handler(
 ) {
   return {
     success: true,
-    message: "Hello World!",
+    message: 'Hello World!',
   };
 }

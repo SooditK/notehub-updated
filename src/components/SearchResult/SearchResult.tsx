@@ -1,53 +1,63 @@
-import { Likes, Post, Subject, User } from "@prisma/client";
-import Link from "next/link";
-import React from "react";
-import { BiLinkAlt } from "react-icons/bi";
-import toast from "react-hot-toast";
-import { useSession } from "next-auth/react";
-import { trpc } from "../../utils/trpc";
-import { AiFillLike } from "react-icons/ai";
+import { Likes, Post, Subject, User } from '@prisma/client';
+import Link from 'next/link';
+import React from 'react';
+import { BiLinkAlt } from 'react-icons/bi';
+import toast from 'react-hot-toast';
+import { useSession } from 'next-auth/react';
+import { trpc } from '../../utils/trpc';
+import { AiFillLike } from 'react-icons/ai';
 
 interface SearchResultProps {
   search: string;
-  posts: (Post & {
+  posts: {
     Subject: Subject | null;
-    Likes: Likes[];
+    Likes: (Likes & {
+      user: User;
+    })[];
+    link: string;
     author: User | null;
-  })[];
+    id: string;
+    university: string | null;
+    description: string;
+    title: string;
+    subjectId: string | null;
+  }[];
   setResult: (
-    result: (Post & {
+    result: {
       Subject: Subject | null;
-      Likes: Likes[];
+      Likes: (Likes & {
+        user: User;
+      })[];
+      link: string;
       author: User | null;
-    })[]
+      id: string;
+      university: string | null;
+      description: string;
+      title: string;
+      subjectId: string | null;
+    }[]
   ) => void;
 }
 
 const SearchResult = ({ posts, search, setResult }: SearchResultProps) => {
   const utils = trpc.useContext();
   const { data: session } = useSession();
-  const userIdFromSession = trpc.useQuery([
-    "post.getuserfromid",
-    {
-      email: session?.user?.email!,
-    },
-  ]);
-  const likePost = trpc.useMutation(["likes.createlike"]);
-  const unlikePost = trpc.useMutation(["likes.deletelike"]);
+  const likePost = trpc.useMutation(['likes.createlike']);
+  const unlikePost = trpc.useMutation(['likes.deletelike']);
   return (
     <>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap justify-center items-center">
-            {posts.map((post) => {
+            {posts.map((post, index) => {
               const isLiked = post.Likes.find(
-                (like) => like.userId === userIdFromSession?.data?.id
+                (like) => like.user.email === session?.user?.email
               );
               return (
-                <div className="p-4 lg:w-1/3" key={post.id}>
-                  <div className="h-full bg-gray-100 bg-opacity-75 px-8 pt-8 pb-12 rounded-lg overflow-hidden text-center relative">
+                <div className="p-4 lg:w-1/4" key={index}>
+                  <div className="h-full bg-gray-100 px-8 pt-8 pb-12 rounded-lg overflow-hidden text-center relative">
                     <h2 className="tracking-widest text-sm title-font font-medium text-indigo-700 mb-1">
-                      {post.Subject?.name}{" "}
+                      {post.Subject?.name}
                       <span className="bg-indigo-100 text-indigo-700 px-2 rounded-xl">
                         {post.Subject?.code}
                       </span>
@@ -77,7 +87,7 @@ const SearchResult = ({ posts, search, setResult }: SearchResultProps) => {
                                 // check if user is logged in
                                 {
                                   session === null || session === undefined
-                                    ? toast.error("Please login")
+                                    ? toast.error('Please login')
                                     : unlikePost.mutate(
                                         {
                                           postid: isLiked?.id,
@@ -86,14 +96,14 @@ const SearchResult = ({ posts, search, setResult }: SearchResultProps) => {
                                           onSuccess: () => {
                                             utils
                                               .fetchQuery([
-                                                "search.notes",
+                                                'search.notes',
                                                 { text: search },
                                               ])
                                               .then((data) => {
                                                 setResult(data);
                                               });
                                             toast.success(
-                                              "Unliked, Please refresh"
+                                              'Unliked, Please refresh'
                                             );
                                           },
                                         }
@@ -108,23 +118,23 @@ const SearchResult = ({ posts, search, setResult }: SearchResultProps) => {
                                 e.preventDefault();
                                 {
                                   session === null || session === undefined
-                                    ? toast.error("Please Login")
+                                    ? toast.error('Please Login')
                                     : likePost.mutate(
                                         {
                                           postid: post.id,
                                         },
                                         {
-                                          onSuccess: (data) => {
+                                          onSuccess: () => {
                                             utils
                                               .fetchQuery([
-                                                "search.notes",
+                                                'search.notes',
                                                 { text: search },
                                               ])
                                               .then((data) => {
                                                 setResult(data);
                                               });
                                             toast.success(
-                                              "Liked, Please refresh"
+                                              'Liked, Please refresh'
                                             );
                                           },
                                         }

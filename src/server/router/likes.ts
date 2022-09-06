@@ -1,18 +1,18 @@
-import { TRPCError } from "@trpc/server";
-import { createRouter } from "./context";
-import { prisma } from "../db/client";
-import { z } from "zod";
+import { TRPCError } from '@trpc/server';
+import { createRouter } from './context';
+import { prisma } from '../db/client';
+import { z } from 'zod';
 
 export const likesRouter = createRouter()
   .middleware(async ({ ctx, next }) => {
     // Any queries or mutations after this middleware will
     // raise an error unless there is a current session
     if (!ctx.session) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
     }
     return next();
   })
-  .mutation("createlike", {
+  .mutation('createlike', {
     input: z.object({
       postid: z.string(),
     }),
@@ -34,7 +34,7 @@ export const likesRouter = createRouter()
       return newlike;
     },
   })
-  .mutation("deletelike", {
+  .mutation('deletelike', {
     input: z.object({
       postid: z.string(),
     }),
